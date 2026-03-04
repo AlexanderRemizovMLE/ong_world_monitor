@@ -6,9 +6,9 @@ services:
   - type: web
     name: ong-monitoring-dashboard
     runtime: static
-    # Build: worldmonitor embed → copy into dashboard public → build dashboard
+    # Build: worldmonitor embed (inline so it works without build:embed script) → copy → build dashboard
     buildCommand: |
-      cd worldmonitor && npm ci && npm run build:embed && \
+      cd worldmonitor && npm ci && npx cross-env VITE_MAP_ONLY=1 VITE_EMBED_BASE=/worldmonitor/ tsc && npx vite build && \
       cd ../ong_monitoring_dashboard && npm run worldmonitor:copy && npm ci && npm run build
     staticPublishPath: ong_monitoring_dashboard/dist
     # News feed (World Map & Market) — required on static host (no proxy)
