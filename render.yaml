@@ -1,0 +1,22 @@
+# Render Blueprint — deploy ONG Monitoring Dashboard (dashboard + embedded World Map)
+# Repo root must contain: ong_monitoring_dashboard/ and worldmonitor/
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: ong-monitoring-dashboard
+    runtime: static
+    # Build: worldmonitor embed → copy into dashboard public → build dashboard
+    buildCommand: |
+      cd worldmonitor && npm ci && npm run build:embed && \
+      cd ../ong_monitoring_dashboard && npm run worldmonitor:copy && npm ci && npm run build
+    staticPublishPath: ong_monitoring_dashboard/dist
+    # News feed (World Map & Market) — required on static host (no proxy)
+    envVars:
+      - key: VITE_WORLDMONITOR_NEWS_API
+        value: https://www.worldmonitor.app/api/news/v1/list-feed-digest
+    # SPA: serve index.html for client-side routes
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

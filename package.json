@@ -1,0 +1,10 @@
+{
+  "name": "ong",
+  "private": true,
+  "description": "ONG Monitoring Dashboard + World Map (worldmonitor embed)",
+  "scripts": {
+    "build": "cd worldmonitor && npm ci && npm run build:embed && cd ../ong_monitoring_dashboard && npm run worldmonitor:copy && npm ci && npm run build",
+    "dev:dashboard": "cd ong_monitoring_dashboard && npm run dev",
+    "dev:worldmonitor": "cd worldmonitor && npm run dev:embed"
+  }
+}
