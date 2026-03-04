@@ -4,10 +4,13 @@ This project deploys as a **static site** on [Render](https://render.com): the d
 
 ## Repo layout
 
-Your Git repository root must contain both folders:
+Your Git repository root must contain:
 
 - `ong_monitoring_dashboard/` — main React dashboard
 - `worldmonitor/` — map app (built in embed mode and copied into the dashboard)
+- `render-build.sh` — build script used by Render (and by `npm run build` from root)
+
+**For the embedded map to work**, the `worldmonitor/` folder must contain the full app: `index.html`, `src/`, `vite.config.ts`, `package.json`, etc. If `worldmonitor/index.html` is missing, the build still succeeds but the World Map tab will show a stub that redirects to worldmonitor.app.
 
 ## Option 1: Deploy with Blueprint (recommended)
 
