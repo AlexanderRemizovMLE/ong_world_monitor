@@ -24,5 +24,5 @@ else
 fi
 
 echo "Building dashboard..."
-cd ong_monitoring_dashboard && npm ci && npm run build
+cd ong_monitoring_dashboard && npm ci && npx vite build
 echo "Build complete. Output: ong_monitoring_dashboard/dist"
